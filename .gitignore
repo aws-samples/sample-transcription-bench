@@ -1,0 +1,59 @@
+# Dependencies
+node_modules/
+frontend/node_modules/
+.venv/
+venv/
+
+# Build outputs
+frontend/dist/
+infra/cdk.out/
+*.js
+*.d.ts
+*.js.map
+
+# Keep TypeScript source files
+!jest.config.ts
+!vite.config.ts
+!frontend/vite.config.ts
+
+# CDK
+cdk.out/
+cdk.context.json
+
+# Environment files
+.env
+.env.*
+!.env.example
+frontend/.env.production
+
+# Local deploy orchestrator state
+.deploy-config
+.deploy-amplify-app-id
+.sagemaker-model-etags
+
+
+# IDE
+.vscode/
+.idea/
+.kiro/
+*.swp
+*.swo
+
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Test coverage
+coverage/
+
+# Lock files are kept (package-lock.json)
+
+# TypeScript build info
+*.tsbuildinfo
+
+.deploy-config.example

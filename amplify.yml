@@ -1,0 +1,23 @@
+version: 1
+applications:
+  - appRoot: frontend
+    frontend:
+      phases:
+        preBuild:
+          commands:
+            - npm ci
+        build:
+          commands:
+            - echo "VITE_API_ENDPOINT=$VITE_API_ENDPOINT" >> .env.production
+            - echo "VITE_WS_ENDPOINT=$VITE_WS_ENDPOINT" >> .env.production
+            - echo "VITE_USER_POOL_ID=$VITE_USER_POOL_ID" >> .env.production
+            - echo "VITE_USER_POOL_CLIENT_ID=$VITE_USER_POOL_CLIENT_ID" >> .env.production
+            - echo "VITE_IDENTITY_POOL_ID=$VITE_IDENTITY_POOL_ID" >> .env.production
+            - npm run build
+      artifacts:
+        baseDirectory: dist
+        files:
+          - '**/*'
+      cache:
+        paths:
+          - node_modules/**/*

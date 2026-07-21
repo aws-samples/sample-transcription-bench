@@ -1,0 +1,17 @@
+# NeMo 2.4.x is the last minor line that supports PyTorch 2.5.x. Leaving
+# `nemo_toolkit[asr]` unpinned lets pip pull NeMo 2.5+, whose dep graph
+# demands `torch>=2.6.0`. On the underlying pytorch-inference:2.5.1
+# DLC that means pip yanks the DLC's own PyTorch, downloads a fresh
+# torch 2.12.x nightly plus a full nvidia-cu13 wheel set (~15 GB), and
+# the resulting environment fails at container start because the new
+# CUDA-13 wheels don't match the DLC's CUDA-12.4 driver — TorchServe
+# then reports /ping 500 forever and every invocation times out at
+# SageMaker's 60 s sync cap.
+#
+# `torch<2.6` is added defensively so if a future NeMo point release
+# ever quietly loosens its torch bound, pip still won't touch the DLC's
+# preinstalled torch 2.5.1.
+nemo_toolkit[asr]>=2.4.0,<2.5
+torch<2.6
+soundfile
+librosa

@@ -1,0 +1,276 @@
+/* ==========================================================================
+   TranscribeBench — Apple-Inspired Design System
+   ========================================================================== */
+
+:root {
+  /* Palette — warm neutrals + a refined accent */
+  --bg-primary: #000000;
+  --bg-secondary: rgba(28, 28, 30, 0.72);
+  --bg-tertiary: rgba(44, 44, 46, 0.65);
+  --bg-elevated: rgba(44, 44, 46, 0.85);
+
+  --surface: rgba(255, 255, 255, 0.04);
+  --surface-hover: rgba(255, 255, 255, 0.07);
+  --surface-active: rgba(255, 255, 255, 0.10);
+
+  --border-primary: rgba(255, 255, 255, 0.08);
+  --border-secondary: rgba(255, 255, 255, 0.05);
+  --border-focus: rgba(99, 102, 241, 0.5);
+
+  --text-primary: rgba(255, 255, 255, 0.92);
+  --text-secondary: rgba(255, 255, 255, 0.55);
+  --text-tertiary: rgba(255, 255, 255, 0.35);
+
+  --accent: #6366f1;
+  --accent-soft: rgba(99, 102, 241, 0.15);
+  --accent-hover: #818cf8;
+
+  --success: #34d399;
+  --success-soft: rgba(52, 211, 153, 0.12);
+  --error: #f87171;
+  --error-soft: rgba(248, 113, 113, 0.1);
+  --warning: #fbbf24;
+  --warning-soft: rgba(251, 191, 36, 0.12);
+
+  /* Typography */
+  --font-sans: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', system-ui, sans-serif;
+  --font-mono: 'SF Mono', 'Fira Code', 'JetBrains Mono', ui-monospace, monospace;
+
+  /* Spacing scale */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+
+  /* Radii */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-full: 100px;
+
+  /* Shadows — layered for depth */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.15);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4), 0 2px 4px rgba(0, 0, 0, 0.2);
+  --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.5), 0 4px 12px rgba(0, 0, 0, 0.3);
+  --shadow-glow: 0 0 20px rgba(99, 102, 241, 0.15);
+
+  /* Motion — Apple-style spring curves */
+  --ease-spring: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --duration-fast: 0.15s;
+  --duration-normal: 0.25s;
+  --duration-slow: 0.4s;
+  --duration-slower: 0.6s;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  letter-spacing: -0.01em;
+  line-height: 1.5;
+}
+
+/* Subtle ambient gradient behind the entire page */
+#root::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(99, 102, 241, 0.08), transparent),
+    radial-gradient(ellipse 60% 40% at 80% 80%, rgba(139, 92, 246, 0.04), transparent);
+  pointer-events: none;
+  z-index: 0;
+}
+
+#root > * {
+  position: relative;
+  z-index: 1;
+}
+
+a {
+  color: var(--accent-hover);
+  text-decoration: none;
+  transition: color var(--duration-fast) var(--ease-out);
+}
+a:hover { color: var(--accent); }
+
+/* Selection */
+::selection {
+  background: rgba(99, 102, 241, 0.3);
+  color: #fff;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 100px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.2); }
+
+/* Focus ring — Apple-style */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* ---- Glass Card (reusable) ---- */
+.glass-card {
+  background: var(--bg-secondary);
+  backdrop-filter: blur(20px) saturate(1.5);
+  -webkit-backdrop-filter: blur(20px) saturate(1.5);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  transition: transform var(--duration-normal) var(--ease-spring),
+              box-shadow var(--duration-normal) var(--ease-spring);
+}
+.glass-card:hover {
+  box-shadow: var(--shadow-lg);
+}
+
+/* ---- Global container ---- */
+.responsive-container {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* ---- ComparisonPage: side-by-side panels ---- */
+.panels-row {
+  display: flex;
+  gap: 1.25rem;
+}
+
+.panels-row > * {
+  flex: 1;
+  width: 0;
+  min-width: 0;
+}
+
+/* ---- DiffViewer: side-by-side columns ---- */
+.diff-columns {
+  display: flex;
+  gap: 0;
+}
+
+.diff-column {
+  flex: 1;
+  min-width: 0;
+  padding: 1rem 1.25rem;
+}
+
+.diff-divider {
+  width: 1px;
+  background: var(--border-primary);
+  flex-shrink: 0;
+}
+
+/* ---- ModelSelector: grid ---- */
+.model-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+/* ---- JobList: scrollable table wrapper ---- */
+.job-table-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ---- LoginPage: centered form ---- */
+.login-container {
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+/* ---- Animations ---- */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInScale {
+  from { opacity: 0; transform: scale(0.96) translateY(4px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.animate-in {
+  animation: fadeIn var(--duration-slow) var(--ease-spring) both;
+}
+
+.animate-in-scale {
+  animation: fadeInScale var(--duration-slow) var(--ease-spring) both;
+}
+
+/* Staggered children animation */
+.stagger > * { animation: fadeIn var(--duration-slow) var(--ease-spring) both; }
+.stagger > *:nth-child(1) { animation-delay: 0ms; }
+.stagger > *:nth-child(2) { animation-delay: 60ms; }
+.stagger > *:nth-child(3) { animation-delay: 120ms; }
+.stagger > *:nth-child(4) { animation-delay: 180ms; }
+.stagger > *:nth-child(5) { animation-delay: 240ms; }
+
+/* ---- Table row hover ---- */
+.job-table-wrapper tr:hover td {
+  background: var(--surface-hover);
+}
+
+/* ==========================================================================
+   Breakpoint: < 900px
+   ========================================================================== */
+@media (max-width: 900px) {
+  .model-grid {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  }
+}
+
+/* ==========================================================================
+   Breakpoint: < 768px
+   ========================================================================== */
+@media (max-width: 768px) {
+  .panels-row { flex-direction: column; }
+  .diff-columns { flex-direction: column; }
+  .diff-divider { width: 100%; height: 1px; }
+  .model-grid { grid-template-columns: 1fr; }
+  .responsive-container {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+  .login-container {
+    margin: 40px auto;
+    padding: 20px;
+  }
+}
