@@ -13,7 +13,7 @@
     "aws-amplify": "^6.14.0",
     "diff-match-patch": "^1.0.5",
     "html2canvas-pro": "^1.5.8",
-    "jspdf": "^2.5.2",
+    "jspdf": "^4.2.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.28.0"
